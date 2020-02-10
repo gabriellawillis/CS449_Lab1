@@ -12,7 +12,7 @@ import android.util.Log;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    static final private String TAG = "Umpire Buddy v1.0";
+    static final private String TAG = "Umpire Buddy v2.0";
 
     private int strike_count = 0;
     private int ball_count = 0;
