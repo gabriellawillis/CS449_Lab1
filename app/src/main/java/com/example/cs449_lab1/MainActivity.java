@@ -2,19 +2,25 @@ package com.example.cs449_lab1;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Button;
+import android.view.View.OnClickListener;
+import android.util.Log;
 
-public class MainActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    static final private String TAG = "Umpire Buddy";
+    static final private String TAG = "Umpire Buddy v1.0";
 
     private int strike_count = 0;
     private int ball_count = 0;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(TAG, "Starting onCreate...");
         setContentView(R.layout.activity_main);
 
         View StrikeButton = findViewById(R.id.strike_button);
@@ -41,7 +47,7 @@ public class MainActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.strike_button:
-                // 3 strikes means batter is out so start count over.
+                // Start count over if user tries to increment beyond 2.
                 if (strike_count == 2) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("Strike Out");
@@ -61,9 +67,8 @@ public class MainActivity implements View.OnClickListener {
                     strike_count++;
                 }
                 break;
-
             case R.id.ball_button:
-                // more than 3 walks means batter walks so message this to user and start over
+                // Start count over if user tries to increment beyond 3.
                 if (ball_count == 3) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("Walk");
@@ -86,5 +91,16 @@ public class MainActivity implements View.OnClickListener {
         }
         updateStrikeCount();
         updateBallCount();
+
+        Button exit_button = (Button) findViewById(R.id.exit_button);
+        exit_button.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                finish();
+                System.exit(0);
+            }
+        });
     }
 }
